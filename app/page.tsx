@@ -483,10 +483,9 @@ export default function Home() {
         </div>
       </div>
       <Script
-        type="module"
-        src="/build/three.js"
-        strategy="afterInteractive"
-      />
+  src="/build/three.js"
+  strategy="beforeInteractive"
+/>
     </>
   );
 }
