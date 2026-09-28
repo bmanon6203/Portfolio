@@ -686,7 +686,7 @@ if (isMobile) {
     }
   }
 
-  loader.load("https://cdn.jsdelivr.net/gh/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb", async (gltf) => {
+  loader.load("/model-room", async (gltf) => {
     let modelLoaded = false;
     loader.load(
       "https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb",
