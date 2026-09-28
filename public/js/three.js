@@ -686,57 +686,37 @@ if (isMobile) {
     }
   }
 
-  const loader = new GLTFLoader(loadingManager);
-loader.setMeshoptDecoder(MeshoptDecoder);
-
-loader.load(
-  // Remplace "ton-vrai-pseudo" et "ton-vrai-repo" par tes vraies infos GitHub !
-  "https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb",
-  
-  // Fonction de succès (quand le modèle est chargé)
-  async (gltf) => {
-    let modelLoaded = true;
-    
-    gltf.scene.traverse((child) => {
-      if (child.name) {
-        // ...
-      } else {
-        // ...
-      }
-      
-      if (child.isMesh) {
-        child.castShadow = true;
-        child.receiveShadow = true;
-        if (child.material) {
-          child.material.envMapIntensity = 1;
-          child.material.depthWrite = true;
-          child.material.needsUpdate = true;
-          if (child.material.opacity >= 0.99 && !child.material.alphaMap) {
-            child.material.transparent = false;
+  loader.load("https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb", async (gltf) => {
+    let modelLoaded = false;
+    loader.load(
+      "https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb",
+      async (gltf) => {
+        modelLoaded = true;
+        gltf.scene.traverse((child) => {
+          if (child.name) {
+          } else {
           }
-        }
-        if (child.geometry) {
-          child.geometry.computeBoundingBox();
-          const bbox = child.geometry.boundingBox.clone();
-          const boxHelper = new THREE.Box3Helper(bbox, 0xff00ff);
-          boxHelper.visible = showHitboxes;
-          child.add(boxHelper);
-          allHitboxHelpers.push(boxHelper);
-        }
-      }
-    });
-  },
-  
-  // Fonction de progression (optionnel)
-  (xhr) => {
-    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-  },
-  
-  // Fonction d'erreur
-  (error) => {
-    console.error('Erreur lors du chargement du modèle 3D :', error);
-  }
-);
+          if (child.isMesh) {
+            child.castShadow = true;
+            child.receiveShadow = true;
+            if (child.material) {
+              child.material.envMapIntensity = 1;
+              child.material.depthWrite = true;
+              child.material.needsUpdate = true;
+              if (child.material.opacity >= 0.99 && !child.material.alphaMap) {
+                child.material.transparent = false;
+              }
+            }
+            if (child.geometry) {
+              child.geometry.computeBoundingBox();
+              const bbox = child.geometry.boundingBox.clone();
+              const boxHelper = new THREE.Box3Helper(bbox, 0xff00ff);
+              boxHelper.visible = showHitboxes;
+              child.add(boxHelper);
+              allHitboxHelpers.push(boxHelper);
+            }
+          }
+        });
 
         const mur = gltf.scene.getObjectByName("Mur001");
         if (mur) {
