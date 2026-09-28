@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/model-room",
+      "destination": "https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb"
+    }
+  ]
+}
