@@ -484,7 +484,7 @@ export default function Home() {
       </div>
       <Script
   src="/build/three.js"
-  strategy="beforeInteractive"
+  strategy="lazyOnload"
 />
     </>
   );
