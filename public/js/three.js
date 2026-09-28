@@ -687,49 +687,56 @@ if (isMobile) {
   }
 
   const loader = new GLTFLoader(loadingManager);
-  loader.setMeshoptDecoder(MeshoptDecoder);
+loader.setMeshoptDecoder(MeshoptDecoder);
 
-  loader.load(
-      "https://github.com/votre-pseudo/votre-repo/releases/download/v1.0.0/room.glb",
-      (gltf) => {
-        let modelLoaded = false;
-        // Le reste de ton code de traitement du modèle (gltf) vient ici...
-      },
-      (xhr) => {
-        // Optionnel : gestion de la progression du chargement
-        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-      },
-      (error) => {
-        console.error('Erreur lors du chargement du modèle 3D :', error);
+loader.load(
+  // Remplace "ton-vrai-pseudo" et "ton-vrai-repo" par tes vraies infos GitHub !
+  "https://github.com/ton-vrai-pseudo/ton-vrai-repo/releases/download/v1.0.0/room.glb",
+  
+  // Fonction de succès (quand le modèle est chargé)
+  async (gltf) => {
+    let modelLoaded = true;
+    
+    gltf.scene.traverse((child) => {
+      if (child.name) {
+        // ...
+      } else {
+        // ...
       }
-    );
-      async (gltf) => {
-        modelLoaded = true;
-        gltf.scene.traverse((child) => {
-          if (child.name) {
-          } else {
+      
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if (child.material) {
+          child.material.envMapIntensity = 1;
+          child.material.depthWrite = true;
+          child.material.needsUpdate = true;
+          if (child.material.opacity >= 0.99 && !child.material.alphaMap) {
+            child.material.transparent = false;
           }
-          if (child.isMesh) {
-            child.castShadow = true;
-            child.receiveShadow = true;
-            if (child.material) {
-              child.material.envMapIntensity = 1;
-              child.material.depthWrite = true;
-              child.material.needsUpdate = true;
-              if (child.material.opacity >= 0.99 && !child.material.alphaMap) {
-                child.material.transparent = false;
-              }
-            }
-            if (child.geometry) {
-              child.geometry.computeBoundingBox();
-              const bbox = child.geometry.boundingBox.clone();
-              const boxHelper = new THREE.Box3Helper(bbox, 0xff00ff);
-              boxHelper.visible = showHitboxes;
-              child.add(boxHelper);
-              allHitboxHelpers.push(boxHelper);
-            }
-          }
-        });
+        }
+        if (child.geometry) {
+          child.geometry.computeBoundingBox();
+          const bbox = child.geometry.boundingBox.clone();
+          const boxHelper = new THREE.Box3Helper(bbox, 0xff00ff);
+          boxHelper.visible = showHitboxes;
+          child.add(boxHelper);
+          allHitboxHelpers.push(boxHelper);
+        }
+      }
+    });
+  },
+  
+  // Fonction de progression (optionnel)
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+  },
+  
+  // Fonction d'erreur
+  (error) => {
+    console.error('Erreur lors du chargement du modèle 3D :', error);
+  }
+);
 
         const mur = gltf.scene.getObjectByName("Mur001");
         if (mur) {
