@@ -693,12 +693,43 @@ if (isMobile) {
   const loader = new GLTFLoader(loadingManager);
   loader.setMeshoptDecoder(MeshoptDecoder);
 
-  loader.load("/assets/3D/room.glb", async (gltf) => {
-    // Gestion fallback si crash mémoire ou erreur de chargement
-    let modelLoaded = false;
-    loader.load(
-      "/assets/3D/room.glb",
-      async (gltf) => {
+  loader.load(
+  "https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb",
+  async (gltf) => {
+    let modelLoaded = true;
+    gltf.scene.traverse((child) => {
+      if (child.name) {
+      } else {
+      }
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if (child.material) {
+          child.material.envMapIntensity = 1;
+          child.material.depthWrite = true;
+          child.material.needsUpdate = true;
+          if (child.material.opacity >= 0.99 && !child.material.alphaMap) {
+            child.material.transparent = false;
+          }
+        }
+        if (child.geometry) {
+          child.geometry.computeBoundingBox();
+          const bbox = child.geometry.boundingBox.clone();
+          const boxHelper = new THREE.Box3Helper(bbox, 0xff00ff);
+          boxHelper.visible = showHitboxes;
+          child.add(boxHelper);
+          allHitboxHelpers.push(boxHelper);
+        }
+      }
+    });
+  },
+  (xhr) => {
+    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+  },
+  (error) => {
+    console.error('Erreur lors du chargement du modèle 3D :', error);
+  }
+);
         modelLoaded = true;
         gltf.scene.traverse((child) => {
           if (child.name) {
