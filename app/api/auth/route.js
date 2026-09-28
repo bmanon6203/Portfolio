@@ -8,15 +8,12 @@ export async function POST(request) {
   if (!accessCode || accessCode !== process.env.ADMIN_TOKEN) {
     return NextResponse.json({ success: false, message: 'Code incorrect' }, { status: 401 });
   }
+
   const token = jwt.sign({ admin: true }, JWT_SECRET, { expiresIn: '1d' });
 
-  // On reconstruit l'URL absolue directement à partir de la requête entrante
-  const host = request.headers.get('host');
-  const protocol = request.headers.get('x-forwarded-proto') || 'https';
-  const absoluteUrl = `${protocol}://${host}/admin/create`;
+  // On crée une réponse JSON simple au lieu de forcer une redirection HTTP POST
+  const response = NextResponse.json({ success: true, redirectUrl: '/admin/create' });
 
-  const response = NextResponse.redirect(absoluteUrl);
-  
   response.cookies.set('admin_jwt', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -24,6 +21,6 @@ export async function POST(request) {
     path: '/',
     maxAge: 86400,
   });
-  
+
   return response;
 }
