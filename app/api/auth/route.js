@@ -10,8 +10,12 @@ export async function POST(request) {
   }
   const token = jwt.sign({ admin: true }, JWT_SECRET, { expiresIn: '1d' });
 
-  // Utilisation d'une URL absolue pour corriger le plantage Vercel :
-  const response = NextResponse.redirect(new URL('/admin/create', request.url));
+  // On reconstruit l'URL absolue directement à partir de la requête entrante
+  const host = request.headers.get('host');
+  const protocol = request.headers.get('x-forwarded-proto') || 'https';
+  const absoluteUrl = `${protocol}://${host}/admin/create`;
+
+  const response = NextResponse.redirect(absoluteUrl);
   
   response.cookies.set('admin_jwt', token, {
     httpOnly: true,
@@ -20,5 +24,6 @@ export async function POST(request) {
     path: '/',
     maxAge: 86400,
   });
+  
   return response;
 }
