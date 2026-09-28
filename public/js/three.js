@@ -691,7 +691,7 @@ loader.setMeshoptDecoder(MeshoptDecoder);
 
 loader.load(
   // Remplace "ton-vrai-pseudo" et "ton-vrai-repo" par tes vraies infos GitHub !
-  "https://github.com/ton-vrai-pseudo/ton-vrai-repo/releases/download/v1.0.0/room.glb",
+  "https://github.com/bmanon6203/Portfolio/releases/download/v1.0.0/room.glb",
   
   // Fonction de succès (quand le modèle est chargé)
   async (gltf) => {
