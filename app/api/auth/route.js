@@ -10,7 +10,9 @@ export async function POST(request) {
   }
   const token = jwt.sign({ admin: true }, JWT_SECRET, { expiresIn: '1d' });
 
-  const response = NextResponse.redirect('/admin/create');
+  // Utilisation d'une URL absolue pour corriger le plantage Vercel :
+  const response = NextResponse.redirect(new URL('/admin/create', request.url));
+  
   response.cookies.set('admin_jwt', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
