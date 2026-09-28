@@ -1,0 +1,284 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caudex:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+
+html,
+body {
+  font-family:
+    "Poppins",
+    "San Francisco",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif !important;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: white #f5e6d3;
+}
+
+#mail,
+#facebook,
+#whatsapp,
+#linkedin {
+  transform-origin: 50% 50%;
+  transition: 0.2s all ease-in-out;
+}
+
+#facebook:hover {
+  transform: translateY(-5px) rotate(4deg);
+  transition: transform 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+  cursor: pointer;
+}
+
+#linkedin:hover {
+  transform: translateY(-30px) rotate(4deg);
+  transition: transform 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+  cursor: pointer;
+}
+
+#whatsapp:hover {
+  transform: translateY(-30px) rotate(-4deg);
+  transition: transform 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+  cursor: pointer;
+}
+
+#mail:hover {
+  transform: translateY(-5px) rotate(-4deg);
+  transition: transform 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+  cursor: pointer;
+}
+
+.loading {
+  transition: all 3s ease-out;
+  z-index: 9999;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+#loadingBgBtm,
+#loadingBgTop {
+  transition: all 2s ease-in-out;
+}
+
+.SlideTop {
+  top: -150% !important;
+}
+
+.SlideBtm {
+  bottom: -150% !important;
+}
+
+#loadingSvg {
+  position: relative;
+  overflow: visible;
+  clip-path: inset(100% 0 0 0);
+  transition: opacity 0.5s ease-out;
+}
+
+.svg-reveal {
+  transition: clip-path 0.3s ease-out;
+}
+
+#Star1,
+#Star2,
+#Star3 {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f5e6d3;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: white;
+  border: 2px solid #333;
+  border-radius: 10px;
+  min-height: 40px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #f8f8f8;
+}
+
+#aboutCard > div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#magicHatModal {
+  opacity: 0;
+  overflow: hidden;
+  z-index: 999999;
+  transform: perspective(1000px);
+  outline: none !important;
+}
+
+#magicHatModal.hidden {
+  display: none !important;
+}
+.mini-card {
+  background: linear-gradient(120deg, #f8ecd0 90%, #f6e3b6 100%) !important;
+  background-size:
+    400px 400px,
+    cover;
+  background-blend-mode: multiply !important;
+  border: 4px double #829c84;
+  box-shadow:
+    0 4px 16px #bfa76a44,
+    0 1.5px 0 #fff8;
+  padding: 22px 24px;
+  border-radius: 18px;
+  color: #43302b;
+  letter-spacing: 0.03em;
+}
+
+.mini-card:hover {
+  cursor: pointer;
+}
+
+.mini-card-link-arrow {
+  transition:
+    transform 0.25s cubic-bezier(0.4, 2, 0.6, 1),
+    scale 0.25s cubic-bezier(0.4, 2, 0.6, 1);
+  display: inline-block;
+}
+
+.mini-card:hover .mini-card-link-arrow {
+  transform: scale(1.35) rotate(-45deg);
+}
+
+.mini-card {
+  transition: box-shadow 0.2s;
+}
+
+.mini-card:hover {
+  box-shadow: none;
+}
+
+/* Supprime la bordure bleue (focus ring) sur le modal et ses enfants */
+#magicHatModal:focus,
+#magicHatModal *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.medieval-bg {
+  background-image:
+    url("https://www.transparenttextures.com/patterns/paper-fibers.png"),
+    linear-gradient(120deg, #f8ecd0 90%, #f6e3b6 100%) !important;
+  background-size:
+    400px 400px,
+    cover;
+  background-blend-mode: multiply !important;
+  border: 10px double #829c84;
+  box-shadow:
+    0 8px 32px #bfa76a66,
+    0 2px 0 #fff8;
+}
+
+.medieval-title {
+  font-family: "Caudex", serif;
+  letter-spacing: 0.04em;
+  color: /*#a88a3c*/ #829c84;
+  text-shadow:
+    0 2px 8px #bfa76a44,
+    0 1.5px 0 #fff8;
+}
+
+#closeMagicHatModal {
+  border: 6px double #829c84;
+  font-family: "Caudex", serif;
+  background: linear-gradient(120deg, #f7ede0 80%, #f5e6d3 100%);
+  color: #43302b;
+  transition:
+    box-shadow 0.2s,
+    background 0.2s;
+  height: 45px;
+  width: 45px;
+  border-radius:40% !important;
+}
+
+.medieval-btn:hover {
+  box-shadow:
+    0 6px 24px #bfa76a88,
+    0 2px 0 #fff8;
+  background: linear-gradient(120deg, #ead298 80%, #f6e3b6 100%);
+}
+
+.medieval-sep {
+  display: none;
+  margin: 0.5em auto 1.2em auto;
+  width: 80px;
+  height: 18px;
+  background: none;
+  border: none;
+}
+
+@keyframes rotate360 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounceOut {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  80% {
+    transform: scale(1.05);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+}
