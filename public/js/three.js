@@ -689,10 +689,20 @@ if (isMobile) {
   const loader = new GLTFLoader(loadingManager);
   loader.setMeshoptDecoder(MeshoptDecoder);
 
-  loader.load("/assets/3D/room.glb", async (gltf) => {
-    let modelLoaded = false;
-    loader.load(
-      "/assets/3D/room.glb",
+  loader.load(
+      "https://github.com/votre-pseudo/votre-repo/releases/download/v1.0.0/room.glb",
+      (gltf) => {
+        let modelLoaded = false;
+        // Le reste de ton code de traitement du modèle (gltf) vient ici...
+      },
+      (xhr) => {
+        // Optionnel : gestion de la progression du chargement
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+      },
+      (error) => {
+        console.error('Erreur lors du chargement du modèle 3D :', error);
+      }
+    );
       async (gltf) => {
         modelLoaded = true;
         gltf.scene.traverse((child) => {
